@@ -2,6 +2,7 @@ import sys
 
 
 def main():
+
     # Uncomment this block to pass the first stage
     while True:
         sys.stdout.write("$ ")
@@ -12,6 +13,7 @@ def main():
         if not command:
             continue
 
+        # Handling the exit command
         if command.startswith("exit"):
             parts = command.split()
             if len(parts)>1 and parts[1].isdigit():
@@ -19,10 +21,15 @@ def main():
             else:
                 exit_code = 0
             sys.exit(exit_code)
-            
-
         
-        print(f"{command}: command not found")
+        # Handling the echo command
+        elif command.startswith("echo"):
+            print(" ".join(command.split()[1:]))
+        
+        else:
+            print(f"{command}: command not found")
+        
+
 
 
 if __name__ == "__main__":
