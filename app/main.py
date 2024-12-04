@@ -7,15 +7,12 @@ BUILTINS = {"echo", "exit", "type"}
 def find_executable(command):
     # Get the PATH environment variable
     paths = os.getenv("PATH", "").split(":")
-    print(f"DEBUG: Searching in PATH: {paths}")  # Debug print
     
     # Search for the command in each directory listed in PATH
     for path in paths:
         potential_path = os.path.join(path, command)
-        print(f"DEBUG: Checking {potential_path}")  # Debug print
         # Check if it's an executable file
         if os.path.isfile(potential_path) and os.access(potential_path, os.X_OK):
-            print(f"DEBUG: Found executable at {potential_path}")  # Debug print
             return potential_path
     return None
 
