@@ -1,6 +1,8 @@
 import sys
 
 
+Builtins = {"echo", "exit", "type"}
+
 def main():
 
     # Uncomment this block to pass the first stage
@@ -26,9 +28,25 @@ def main():
         elif command.startswith("echo"):
             print(" ".join(command.split()[1:]))
         
+
+        # Handle type command
+        elif command.startswith("type"):
+            parts = command.split()
+            if len(parts)>1:
+                target = parts[1]
+                if target in Builtins:
+                    print(f"{target} is a shell builtin")
+                else:
+                    print(f"{target}: not found")
+            
+            else:
+                print("type: missing operand")
+
         else:
             print(f"{command}: command not found")
         
+
+
 
 
 
