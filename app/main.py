@@ -1,5 +1,6 @@
 import sys
 import os
+import subprocess
 
 # List of shell builtins
 BUILTINS = {"echo", "exit", "type"}
@@ -60,9 +61,24 @@ def main():
             else:
                 print("type: missing operand")
 
-        # Handle invalid commands
+        # Handle running external commands
         else:
-            print(f"{command}: command not found")
+            parts = command.split()
+            program_name = parts[0]
+            arguments = parts[1:]
+
+            # Find the program in PATH
+            executable_path = find_executable(program_name)
+            if executable_path:
+                try:
+                    # Run the external program with arguments
+                    result = subprocess.run([executable_path] + arguments, capture_output=True, text=True)
+                    # Print the output of the external program
+                    print(result.stdout, end="")
+                except Exception as e:
+                    print(f"Error executing {program_name}: {e}")
+            else:
+                print(f"{program_name}: command not found")
 
 
 if __name__ == "__main__":
