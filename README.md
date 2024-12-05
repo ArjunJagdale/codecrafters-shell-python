@@ -1,34 +1,48 @@
-[![progress-banner](https://backend.codecrafters.io/progress/shell/e7e4b5f8-92da-4d03-921c-8f60bed04e91)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
+# Custom Shell Project Summary
 
-This is a starting point for Python solutions to the
-["Build Your Own Shell" Challenge](https://app.codecrafters.io/courses/shell/overview).
+Developed a custom shell in Python, completing a total of 23 stages, which included handling core shell functionality. Implemented 7 builtins: 
+- exit
+- echo
+- type
+- pwd
+- cd (handling absolute, relative, and home directory paths)
+- Quoting mechanisms with single and double quotes, including special handling for backslashes.
 
-In this challenge, you'll build your own POSIX compliant shell that's capable of
-interpreting shell commands, running external programs and builtin commands like
-cd, pwd, echo and more. Along the way, you'll learn about shell command parsing,
-REPLs, builtin commands, and more.
+The shell supports executing external programs by searching through directories in the PATH environment variable and correctly parsing and running commands with arguments. Ensured robust handling of file paths, navigation, and environment variable expansion, making this project a comprehensive exercise in system-level programming and shell behavior.
 
-**Note**: If you're viewing this repo on GitHub, head over to
-[codecrafters.io](https://codecrafters.io) to try the challenge.
+## Test Cases (Stages Completed):
+1. Print a prompt
+2. Handle invalid commands
+3. REPL (Read-Eval-Print Loop)
+4. The exit builtin
+5. The echo builtin
+6. The type builtin: builtins
+7. The type builtin: executable files
+8. Run a program
+9. The pwd builtin
+10. The cd builtin: Absolute paths
+11. The cd builtin: Relative paths
+12. The cd builtin: Home directory
+13. Single quotes (Quoting)
+14. Double quotes (Quoting)
+15. Backslash outside quotes
+16. Backslash within single quotes
+17. Backslash within double quotes
+18. Executing a quoted executable
+19. cd with absolute path
+20. cd with relative path
+21. cd with home directory (~)
+22. Quoting with single quotes
+23. Quoting with double quotes
 
-# Passing the first stage
-
-The entry point for your `shell` implementation is in `app/main.py`. Study and
-uncomment the relevant code, and push your changes to pass the first stage:
-
-```sh
-git commit -am "pass 1st stage" # any msg
-git push origin master
-```
-
-Time to move on to the next stage!
-
-# Stage 2 & beyond
-
-Note: This section is for stages 2 and beyond.
-
-1. Ensure you have `python (3.11)` installed locally
-1. Run `./your_program.sh` to run your program, which is implemented in
-   `app/main.py`.
-1. Commit your changes and run `git push origin master` to submit your solution
-   to CodeCrafters. Test output will be streamed to your terminal.
+## Skills:
+- Python (Programming Language)
+- Shell Scripting
+- REPL
+- System Programming
+- File System Navigation
+- Quoting Mechanisms
+- Command Parsing
+- Path Handling
+- Backslash Handling
+- Executable Management
