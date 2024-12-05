@@ -1,6 +1,7 @@
 import os
 import sys
 import subprocess
+import shlex
 
 # List of shell builtins
 BUILTINS = {"echo", "exit", "type", "pwd", "cd"}
@@ -12,6 +13,14 @@ def find_executable(command):
         if os.path.isfile(potential_path) and os.access(potential_path, os.X_OK):
             return potential_path
     return None
+
+def parse_command(command):
+    # Use shlex to handle quoted strings properly
+    try:
+        return shlex.split(command, posix=True)
+    except ValueError as e:
+        print(f"Error parsing command: {e}")
+        return []
 
 def main():
     while True:
@@ -25,7 +34,11 @@ def main():
         if not command:
             continue
 
-        parts = command.split()
+        # Parse the command, handling single quotes
+        parts = parse_command(command)
+        if not parts:
+            continue
+
         cmd = parts[0]
         args = parts[1:]
 
