@@ -3,7 +3,7 @@ import os
 import subprocess
 
 # List of shell builtins
-BUILTINS = {"echo", "exit", "type"}
+BUILTINS = {"echo", "exit", "type", "pwd"}
 
 def find_executable(command):
     # Get the PATH environment variable
@@ -42,6 +42,10 @@ def main():
         # Handle the `echo` command
         elif command.startswith("echo"):
             print(" ".join(command.split()[1:]))
+
+        # Handle the `pwd` command
+        elif command == "pwd":
+            print(os.getcwd())
 
         # Handle the `type` command
         elif command.startswith("type"):
