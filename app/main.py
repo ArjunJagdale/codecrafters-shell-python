@@ -55,6 +55,7 @@ def main():
             else:
                 path = args[0]
                 try:
+                    # Resolve relative and absolute paths
                     os.chdir(path)
                 except FileNotFoundError:
                     print(f"cd: {path}: No such file or directory")
