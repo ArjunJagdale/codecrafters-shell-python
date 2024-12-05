@@ -15,12 +15,44 @@ def find_executable(command):
     return None
 
 def parse_command(command):
-    # Use shlex to handle quoted strings properly
     try:
         return shlex.split(command, posix=True)
     except ValueError as e:
         print(f"Error parsing command: {e}")
         return []
+
+def process_argument(arg):
+    """
+    Handles variable expansion and escaped characters in double quotes.
+    """
+    if arg.startswith('"') and arg.endswith('"'):
+        # Remove the enclosing double quotes
+        arg = arg[1:-1]
+        result = []
+        i = 0
+        while i < len(arg):
+            if arg[i] == "\\":
+                # Handle escaped characters
+                if i + 1 < len(arg) and arg[i + 1] in ['\\', '$', '"', '\n']:
+                    result.append(arg[i + 1])
+                    i += 1
+                else:
+                    result.append(arg[i])  # Keep the backslash as-is
+            elif arg[i] == "$":
+                # Variable expansion
+                var_name = []
+                i += 1
+                while i < len(arg) and (arg[i].isalnum() or arg[i] == "_"):
+                    var_name.append(arg[i])
+                    i += 1
+                i -= 1  # Compensate for the extra increment
+                env_value = os.getenv("".join(var_name), "")
+                result.append(env_value)
+            else:
+                result.append(arg[i])
+            i += 1
+        return "".join(result)
+    return arg
 
 def main():
     while True:
@@ -34,10 +66,13 @@ def main():
         if not command:
             continue
 
-        # Parse the command, handling single quotes
+        # Parse the command
         parts = parse_command(command)
         if not parts:
             continue
+
+        # Process double-quoted arguments
+        parts = [process_argument(arg) for arg in parts]
 
         cmd = parts[0]
         args = parts[1:]
@@ -64,7 +99,6 @@ def main():
                     if not home_dir:
                         print("cd: HOME environment variable not set")
                         continue
-                    # Replace `~` with the home directory
                     path = os.path.join(home_dir, path[2:] if path.startswith("~/") else "")
 
                 try:
